@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <title>💖 Yes! 💖</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #FFC0CB;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Pixelify Sans', sans-serif;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+            padding: 20px; /* Add padding for smaller screens */
+        }
+
+        h1 {
+            font-size: clamp(2rem, 8vw, 3rem); /* Responsive font size */
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        img {
+            width: clamp(150px, 40vw, 200px); /* Responsive image size */
+            margin-top: 20px;
+        }
+
+        .rectangle-button {
+            font-size: clamp(1rem, 5vw, 1.5rem); /* Responsive font size */
+            padding: clamp(8px, 3vw, 15px) clamp(20px, 4vw, 40px);
+            background-color: #ff8496;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            text-decoration: none;
+            display: inline-block;
+            position: absolute;
+            bottom: 5%;
+        }
+
+        .rectangle-button:hover {
+            background-color: #ff6d83;
+        }
+
+        /* Inline Password Screen */
+        #passwordContainer {
+            background: rgba(255, 192, 203, 0.95);
+            padding: clamp(20px, 5vw, 30px);
+            border-radius: 20px;
+            text-align: center;
+            width: 90vw;
+            max-width: 400px;
+            margin-top: 20px;
+            display: none; /* Initially hidden */
+        }
+
+        #passwordContainer h2 {
+            font-size: clamp(1.5rem, 6vw, 2rem); /* Responsive font size */
+            margin-bottom: 20px;
+        }
+
+        /* Password display */
+        #passwordDisplay {
+            font-size: clamp(1.5rem, 6vw, 2.5rem); /* Responsive font size */
+            padding: clamp(10px, 3vw, 15px);
+            background-color: #ff8496;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.1s ease-in-out;
+            margin: 15px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            line-height: normal;
+        }
+
+        /* Keypad for password entry */
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(10px, 3vw, 15px); /* Responsive gap */
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .key {
+            font-size: clamp(1.5rem, 6vw, 2rem); /* Responsive font size */
+            padding: clamp(10px, 3vw, 15px);
+            background-color: #ff8496;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.1s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            line-height: normal;
+        }
+
+        .key:hover {
+            background-color: #ff6d83;
+        }
+
+        .key:active {
+            background-color: #ff6d83;
+        }
+
+        /* Close button */
+        .close-btn {
+            background: #ff6d83;
+            color: white;
+            padding: clamp(8px, 3vw, 10px) clamp(15px, 4vw, 20px);
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+            border-radius: 10px;
+            font-size: clamp(1rem, 4vw, 1.2rem); /* Responsive font size */
+        }
+
+        /* Mobile-specific adjustments */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: clamp(1.8rem, 8vw, 2.5rem); /* Smaller font size for mobile */
+            }
+
+            img {
+                width: clamp(120px, 40vw, 150px); /* Smaller image for mobile */
+            }
+
+            .rectangle-button {
+                width: 80%; /* Wider button for easier tapping */
+                font-size: clamp(1.2rem, 5vw, 1.5rem);
+            }
+
+            #passwordContainer {
+                width: 95vw; /* Wider container for mobile */
+            }
+
+            .key {
+                font-size: clamp(1.2rem, 5vw, 1.8rem); /* Smaller keys for mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>luv u na jub jub</h1>
+    <img src="https://media.tenor.com/bSDfFZEc7m4AAAAi/myaowl-cute.gif" alt="Happy">
+    <button id="passwordButton" class="rectangle-button">password</button>
+
+    <!-- Inline Password Entry -->
+    <div id="passwordContainer">
+        <h2>Enter the Secret Code</h2>
+        <div id="passwordDisplay">••••</div>
+        <div class="keypad">
+            <button class="key" data-value="1">1</button>
+            <button class="key" data-value="2">2</button>
+            <button class="key" data-value="3">3</button>
+            <button class="key" data-value="4">4</button>
+            <button class="key" data-value="5">5</button>
+            <button class="key" data-value="6">6</button>
+            <button class="key" data-value="7">7</button>
+            <button class="key" data-value="8">8</button>
+            <button class="key" data-value="9">9</button>
+            <button class="key clear">*</button>
+            <button class="key" data-value="0">0</button>
+            <button class="key enter">#</button>
+        </div>
+        <button class="close-btn">Close</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            const correctPassword = "3117"; // Set the correct password
+            let enteredPassword = "";
+    
+            // Show password container
+            $("#passwordButton").click(function () {
+                $("#passwordContainer").css("display", "block"); // Show the password container
+                $("h1, img, .rectangle-button").hide(); // Hide the main content, image, and password button
+            });
+    
+            // Close password container
+            $(".close-btn").click(function () {
+                $("#passwordContainer").hide(); // Hide the password container
+                $("h1, img, .rectangle-button").show(); // Show the main content, image, and password button
+                enteredPassword = "";
+                updateDisplay();
+            });
+    
+            // Handle password entry
+            $(".key").click(function () {
+                const value = $(this).data("value");
+    
+                if (value) {
+                    enteredPassword += value;
+                    updateDisplay();
+    
+                    // Check password once 4 digits are entered
+                    if (enteredPassword.length === 4) {
+                        checkPassword();
+                    }
+                } else if ($(this).hasClass("clear")) {
+                    enteredPassword = "";
+                    updateDisplay();
+                }
+            });
+    
+            function updateDisplay() {
+                $("#passwordDisplay").text(enteredPassword.padEnd(4, "•"));
+            }
+    
+            function checkPassword() {
+                if (enteredPassword === correctPassword) {
+                    window.location.href = "timer.html"; // Redirect to the next page
+                } else {
+                    enteredPassword = "";
+                    updateDisplay();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

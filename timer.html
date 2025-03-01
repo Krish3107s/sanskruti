@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Anniversary Timer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Press Start 2P', serif;
+      background: #ffe6f2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 20px;
+      color: #d63384;
+    }
+
+    h1 {
+      font-size: clamp(1.5rem, 6vw, 2.5rem); /* Responsive font size */
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+      font-weight: bold;
+    }
+
+    /* Text Box for Years, Months, Days */
+    .time-info {
+      background: #ff6ab4;
+      padding: clamp(10px, 4vw, 20px) clamp(15px, 5vw, 30px);
+      border-radius: 25px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      font-size: clamp(1rem, 4vw, 1.5rem); /* Responsive font size */
+      color: white;
+      margin-bottom: 20px;
+      width: 90%;
+      max-width: 500px;
+    }
+
+    img {
+      width: clamp(120px, 30vw, 150px); /* Responsive image size */
+      margin-top: 10px;
+      position: absolute;
+      top: 10%;
+    }
+
+    /* Timer Container */
+    .timer {
+      background: #fff;
+      padding: clamp(10px, 4vw, 20px) clamp(20px, 5vw, 40px);
+      border-radius: 25px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      width: 90%;
+      max-width: 500px;
+    }
+
+    /* Timer Values and Words in Same Box */
+    .timer-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .timer span {
+      font-size: clamp(1.2rem, 4vw, 2rem); /* Responsive font size */
+      font-weight: 700;
+      color: #d63384;
+    }
+
+    /* Words Below Timer in Same Container */
+    .timer div {
+      font-size: clamp(0.8rem, 2.5vw, 1.2rem); /* Responsive font size */
+      color: #d63384;
+      text-align: center;
+    }
+
+    /* Text box with custom styles for the text */
+    .header-box {
+      background: #ff6ab4;
+      padding: clamp(10px, 4vw, 20px) clamp(15px, 5vw, 30px);
+      border-radius: 25px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      font-size: clamp(1rem, 4vw, 1.5rem); /* Responsive font size */
+      font-weight: bold;
+      color: white;
+      margin-bottom: 20px;
+      width: 90%;
+      max-width: 500px;
+      position: absolute;
+      top: 5%;
+    }
+
+    /* Footer Box */
+    .footer-box {
+      background: #ff6ab4;
+      padding: clamp(10px, 4vw, 20px) clamp(15px, 5vw, 30px);
+      border-radius: 25px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      font-size: clamp(0.8rem, 2.5vw, 1.2rem); /* Responsive font size */
+      color: white;
+      margin-top: 20px;
+      width: 90%;
+      max-width: 500px;
+      letter-spacing: 1px;
+      line-height: 1.5;
+      position: absolute;
+      bottom: 5%;
+    }
+
+    /* Mobile-specific adjustments */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: clamp(1.2rem, 6vw, 2rem); /* Smaller font size for mobile */
+      }
+
+      img {
+        width: clamp(100px, 30vw, 120px); /* Smaller image for mobile */
+        top: 5%;
+      }
+
+      .header-box, .time-info, .timer, .footer-box {
+        width: 95%; /* Wider containers for mobile */
+      }
+
+      .timer span {
+        font-size: clamp(1rem, 4vw, 1.5rem); /* Smaller font size for mobile */
+      }
+
+      .timer div {
+        font-size: clamp(0.7rem, 2.5vw, 1rem); /* Smaller font size for mobile */
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Text Box -->
+  <div class="header-box">
+    How long we have been together? 
+  </div>
+  <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExNDllZGZmdDkwc3ExZG52YmxxMDg3ODJqbDNsazc4bW5mMHppMmF2aSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/gdspgdOIV1HxhnxQOH/giphy.gif" alt="Happy">
+  <!-- Time Info (Years, Months, Days) -->
+  <div class="time-info" id="time-info">
+    <!-- This will be dynamically updated -->
+  </div>
+
+  <!-- Timer -->
+  <div class="timer">
+    <div class="timer-container">
+      <span id="days">0</span>:<span id="hrs">00</span>:<span id="mins">00</span>:<span id="secs">00</span>
+    </div>
+    <div class="timer-container">
+      <div>Days</div>
+      <div>Hrs</div>
+      <div>Mins</div>
+      <div>Secs</div>
+    </div>
+  </div>
+
+  <!-- Names -->
+  <div class="names">
+    Gafiws &amp; Nack
+  </div>
+  <div class="footer-box">
+    i'm sorry for tonight that i make you upset and can't do any thing to make you don't cry, i love you love you so much that i think i can't love anyone like i love you 
+  </div>
+
+  <script>
+    // Set the anniversary date to 11 months, 21 days, 3 hours, 10 minutes, and 30 seconds before the current date
+    const now = new Date();
+    const anniversaryDate = new Date(
+      now.getFullYear(),
+      now.getMonth() - 11, // Subtract 11 months
+      now.getDate() - 21,  // Subtract 21 days
+      now.getHours() - 3,  // Subtract 3 hours
+      now.getMinutes() - 10, // Subtract 10 minutes
+      now.getSeconds() - 30  // Subtract 30 seconds
+    );
+  
+    function updateTimer() {
+      const now = new Date();
+      const timeDifference = now - anniversaryDate; // Time elapsed since the anniversary
+  
+      // Calculate time components
+      const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+  
+      // Calculate years, months, and remaining days
+      const years = Math.floor(days / 365);
+      const months = Math.floor((days % 365) / 30);
+      const remainingDays = days % 30;
+  
+      // Update the Time Info section
+      let timeInfo = '';
+      if (years > 0) {
+        timeInfo += `${years} Years `;
+      }
+      if (months > 0) {
+        timeInfo += `${months} Months `;
+      }
+      timeInfo += `${remainingDays} Days`;
+  
+      document.getElementById('time-info').textContent = timeInfo;
+  
+      // Update the timer display
+      document.getElementById('days').textContent = days;
+      document.getElementById('hrs').textContent = hours.toString().padStart(2, '0');
+      document.getElementById('mins').textContent = minutes.toString().padStart(2, '0');
+      document.getElementById('secs').textContent = seconds.toString().padStart(2, '0');
+    }
+  
+    // Update timer every second
+    setInterval(updateTimer, 1000);
+    updateTimer();
+  </script>
+</body>
+</html>

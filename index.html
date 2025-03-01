@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Valentine's Gift !!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+       
+        body {
+            background-color: #FFC0CB;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: clamp(1.5rem, 6vw, 2.5rem); 
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        img {
+            width: clamp(150px, 40vw, 200px); 
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: clamp(10px, 5vw, 50px);
+            flex-wrap: wrap;
+        }
+        
+        button {
+            font-family: 'Pixelify Sans', sans-serif; 
+            font-size: clamp(1rem, 5vw, 2rem); 
+            padding: clamp(10px, 3vw, 15px) clamp(20px, 6vw, 30px);
+            background-color: #ff8496;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.1s ease-in-out;
+            min-width: clamp(100px, 30vw, 150px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        button:hover {
+            background-color: #ff6d83;
+        }
+
+        #no {
+            position: absolute;
+            transition: left 0.3s ease, top 0.3s ease;
+        }
+
+        #yes {
+            position: fixed;
+            right: 57%;
+            top: 67%;
+        }
+
+        #loadingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: #FFC0CB;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .loading-text {
+            font-family: 'Press Start 2P', cursive;
+            color: white;
+            font-size: clamp(1.5rem, 6vw, 3rem);
+            margin-bottom: 20px;
+        }   
+
+        @keyframes dotAnimation {
+            0% { content: ""; }
+            33% { content: "."; }
+            66% { content: ".."; }
+            100% { content: "..."; }
+        }
+
+        .dots::after {
+            content: "";
+            animation: dotAnimation 1.5s infinite steps(1);
+        }
+
+        .no-button-surround {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: transparent;
+            border-radius: 50%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: clamp(1.2rem, 6vw, 1.8rem);
+            }
+
+            img {
+                width: clamp(120px, 40vw, 150px);
+            }
+
+            .buttons {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            button {
+                width: 80%;
+                font-size: clamp(1.2rem, 5vw, 1.8rem);
+            }
+
+            #no, #yes {
+                position: static;
+                margin-top: 10px;
+            }
+
+            .no-button-surround {
+                width: 150px;
+                height: 150px;
+            }
+        }
+
+        /* Further improve mobile interaction */
+        @media (max-width: 400px) {
+            button {
+                font-size: 1.5rem;
+                padding: 12px 25px;
+            }
+
+            .no-button-surround {
+                width: 120px;
+                height: 120px;
+            }
+
+            img {
+                width: 120px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <img src="https://media.tenor.com/fYg91qBpDdgAAAAi/bongo-cat-transparent.gif" alt="Bongo Cat">
+    <h1>Will you Always Be Mine??</h1>
+    <h1>CLICK NO BUTTON IF YOU CAN😜</h1>
+
+    <div class="buttons">
+        <button id="yes">yes</button>
+        <button id="no">no</button>
+    </div>
+
+    <div class="no-button-surround" id="noSurround"></div>
+
+    <div id="loadingScreen">
+        <div class="loading-text">LOADING<span id="dots"></span></div>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const noButton = document.getElementById("no");
+            const yesButton = document.getElementById("yes");
+            const noSurround = document.getElementById("noSurround");
+
+            function moveNoButton() {
+                const viewportWidth = window.innerWidth;
+                const viewportHeight = window.innerHeight;
+                const buttonWidth = noButton.offsetWidth;
+                const buttonHeight = noButton.offsetHeight;
+                const yesRect = yesButton.getBoundingClientRect();
+
+                let isOverlapping;
+                let newX, newY;
+
+                do {
+                    newX = Math.random() * (viewportWidth - buttonWidth);
+                    newY = Math.random() * (viewportHeight - buttonHeight);
+
+                    isOverlapping =
+                        newX < yesRect.right &&
+                        newX + buttonWidth > yesRect.left &&
+                        newY < yesRect.bottom &&
+                        newY + buttonHeight > yesRect.top;
+                } while (isOverlapping);
+
+                noButton.style.left = `${newX}px`;
+                noButton.style.top = `${newY}px`;
+
+                // Move the surrounding area with the button
+                noSurround.style.left = `${newX - 75}px`;
+                noSurround.style.top = `${newY - 75}px`;
+            }
+
+            // Touch events for mobile users
+            noButton.addEventListener("touchstart", (event) => {
+                event.preventDefault();
+                moveNoButton();
+            });
+
+            noButton.addEventListener("click", (event) => {
+                event.preventDefault();
+                moveNoButton();
+            });
+
+            async function sendYesDataToGoogleSheets() {
+                const sheetUrl = "https://script.google.com/macros/s/AKfycbwb6ukWge8hwSGm3eAQ_YDsb93-fiwLrkGMxdGv6CcCZZv04O03AqRDH4R4pZr4siJ7/exec";
+                const data = { response: "User clicked YES!" };
+
+                document.getElementById("loadingScreen").style.display = "flex";
+
+                await fetch(sheetUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data),
+                    mode: "no-cors"
+                });
+
+                window.location.href = "yes_page.html";
+            }
+
+            async function sendNoDataToGoogleSheets() {
+                const sheetUrl = "https://script.google.com/macros/s/AKfycbwb6ukWge8hwSGm3eAQ_YDsb93-fiwLrkGMxdGv6CcCZZv04O03AqRDH4R4pZr4siJ7/exec";
+                const data = { response: "User clicked no :(" };
+
+                document.getElementById("loadingScreen").style.display = "flex";
+
+                await fetch(sheetUrl, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data),
+                    mode: "no-cors"
+                });
+
+                window.location.href = "no_page.html";
+            }
+
+            yesButton.addEventListener("click", sendYesDataToGoogleSheets);
+        });
+
+        const dots = document.getElementById("dots");
+        let dotCount = 0;
+
+        setInterval(() => {
+            dotCount = (dotCount + 1) % 4;
+            dots.textContent = ".".repeat(dotCount);
+        }, 500);
+    </script>
+</body>
+</html>
